@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extension-pingindicator">
+  <schema id="org.gnome.shell.extensions.pingindicator" path="/org/gnome/shell/extensions/pingindicator/">
+	<key name="ping-destination" type="s">
+	  	<default>'8.8.8.8'</default>
+	</key>
+	<key name="refresh-interval" type="i">
+	  	<default>5</default>
+	</key>
+  </schema>
+</schemalist>
