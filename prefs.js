@@ -65,7 +65,7 @@ const PingPrefsWidget = new GObject.Class({
             text: this._pingDestination,
             halign: Gtk.Align.CENTER
         });
-        this._entry.connect("changed", Lang.bind(this, function() {
+        this._entry.connect("activate", Lang.bind(this, function() {
             this._pingDestination = this._entry.text;
         }));
 

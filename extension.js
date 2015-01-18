@@ -39,13 +39,13 @@ const PingMenuButton = new Lang.Class({
 
     _loadConfig: function() {
         this._settings = Convenience.getSettings(PING_SETTINGS_SCHEMA);
-        this._settingsC = this._settings.connect("changed", Lang.bind(this, function() {
-            this._refresh();
-        }));
+//        this._settingsC = this._settings.connect("changed", Lang.bind(this, function() {
+//            this._refresh();
+//        }));
     },
 
     _onPreferencesActivate: function() {
-        Util.spawn(["gnome-shell-extension-prefs", "ping-indicator@trifonovkv.gmail.com"]);
+        Util.spawn(["gnome-shell-extension-prefs", "ping_indicator@trifonovkv.gmail.com"]);
         return 0;
     },
 
