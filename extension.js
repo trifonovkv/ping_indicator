@@ -39,9 +39,9 @@ const PingMenuButton = new Lang.Class({
 
     _loadConfig: function() {
         this._settings = Convenience.getSettings(PING_SETTINGS_SCHEMA);
-//        this._settingsC = this._settings.connect("changed", Lang.bind(this, function() {
-//            this._refresh();
-//        }));
+        this._settingsC = this._settings.connect("changed", Lang.bind(this, function() {
+            this._refresh();
+        }));
     },
 
     _onPreferencesActivate: function() {
