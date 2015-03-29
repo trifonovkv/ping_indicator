@@ -3,5 +3,5 @@
   "name": "Ping Indicator", 
   "description": "Display ping time",
   "url": "https://github.com/trifonovkv/ping_indicator",
-  "shell-version": ["3.10", "3.12", "3.14"] 
+  "shell-version": ["3.10", "3.12", "3.14","3.16"] 
 }
