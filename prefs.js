@@ -12,6 +12,7 @@ const _ = Gettext.gettext;
 const PING_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.pingindicator';
 const PING_DESTINATION = 'ping-destination';
 const REFRESH_INTERVAL = 'refresh-interval';
+const BEEP_WHEN_TIMEOUT = 'beep-when-timeout';
 
 function init() {
     Convenience.initTranslations('gnome-shell-extension-pingindicator');
@@ -72,6 +73,25 @@ const PingPrefsWidget = new GObject.Class({
         hbox.pack_start(label, false, false, 50);
         hbox.pack_end(this._entry, false, false, 50);
         this.add(hbox);
+
+        let hbox = new Gtk.HBox({
+            homogeneous: true
+        });
+        let label = new Gtk.Label({
+            label: _("Beep signal when timeout")
+        });
+
+        this._switch = new Gtk.Switch({
+            active: this._playBeep,
+            halign: Gtk.Align.CENTER
+        });
+        this._switch.connect("state_changed", Lang.bind(this, function() {
+            this._playBeep = this._switch.active;
+        }));
+
+        hbox.pack_start(label, false, false, 50);
+        hbox.pack_end(this._switch, false, false, 50);
+        this.add(hbox);
     },
 
     _loadConfig: function() {
@@ -100,6 +120,18 @@ const PingPrefsWidget = new GObject.Class({
         if (!this._settings)
             this._loadConfig();
         this._settings.set_int(REFRESH_INTERVAL, v);
+    },
+
+    get _playBeep() {
+        if (!this._settings)
+            this._loadConfig();
+        return this._settings.get_boolean(BEEP_WHEN_TIMEOUT);
+    },
+
+    set _playBeep(v) {
+        if (!this._settings)
+            this._loadConfig();
+        this._settings.set_boolean(BEEP_WHEN_TIMEOUT, v);
     },
 
 });

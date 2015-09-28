@@ -16,6 +16,9 @@ const _ = Gettext.gettext;
 const PING_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.pingindicator';
 const PING_DESTINATION = 'ping-destination';
 const REFRESH_INTERVAL = 'refresh-interval';
+const BEEP_WHEN_TIMEOUT = 'beep-when-timeout';
+
+const SOUND_FILE_PATH = '/usr/share/sounds/freedesktop/stereo/bell.oga';
 
 const PingMenuButton = new Lang.Class({
     Name: 'PingMenuButton',
@@ -118,12 +121,21 @@ const PingMenuButton = new Lang.Class({
         return this._settings.get_int(REFRESH_INTERVAL);
     },
 
+    get _playBeep() {
+        if (!this._settings)
+            this._loadConfig();
+        return this._settings.get_boolean(BEEP_WHEN_TIMEOUT);
+    },
+
     _refresh: function() {
         this._removeTimeout();
         if (this.child_pid === undefined) {
             this._loadData();
         } else {
             this.buttonText.set_text(_('Waiting'));
+            if (this._playBeep) {
+              Util.trySpawnCommandLine('canberra-gtk-play -f ' + SOUND_FILE_PATH);
+            }
         }
         this._timeout = Mainloop.timeout_add_seconds(this._refreshInterval,
             Lang.bind(this, this._refresh));

@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-28 10:46+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "..."
+msgstr "..."
+
+msgid "Beep signal when timeout"
+msgstr "Бип при истечении времени ожидания"
+
+msgid "Destination, IP or URL"
+msgstr "Адрес, IP или URL"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Interval, sec."
+msgstr "Интервал, сек."
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Waiting"
+msgstr "Ожидание"

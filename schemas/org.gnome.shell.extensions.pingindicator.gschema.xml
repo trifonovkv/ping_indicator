@@ -7,5 +7,8 @@
 	<key name="refresh-interval" type="i">
 	  	<default>5</default>
 	</key>
+  <key name="beep-when-timeout" type="b">
+	  	<default>false</default>
+	</key>
   </schema>
 </schemalist>
