@@ -7,7 +7,8 @@
     "3.12", 
     "3.14", 
     "3.16", 
-    "3.18"
+    "3.18",
+    "3.20"
   ], 
   "url": "https://github.com/trifonovkv/ping_indicator", 
   "uuid": "ping_indicator@trifonovkv.gmail.com", 
