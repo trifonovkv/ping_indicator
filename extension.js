@@ -97,8 +97,6 @@ const PingMenuButton = new Lang.Class({
             let result = out.toString().match(/time=(\d*.*)/m);
             if(result != null)
                 this.buttonText.set_text(result[1]);
-            else
-                print("Parse error"); 
         }
         GLib.source_remove(this.tagWatchOUT);
         channel.shutdown(true);
