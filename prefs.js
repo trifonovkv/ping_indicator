@@ -55,10 +55,10 @@ const PingPrefsWidget = new GObject.Class({
         hbox.pack_end(spinButton, false, false, 50);
         this.add(hbox);
 
-        let hbox = new Gtk.HBox({
+        hbox = new Gtk.HBox({
             homogeneous: true
         });
-        let label = new Gtk.Label({
+        label = new Gtk.Label({
             label: _("Destination, IP or URL")
         });
 
@@ -74,10 +74,10 @@ const PingPrefsWidget = new GObject.Class({
         hbox.pack_end(this._entry, false, false, 50);
         this.add(hbox);
 
-        let hbox = new Gtk.HBox({
+        hbox = new Gtk.HBox({
             homogeneous: true
         });
-        let label = new Gtk.Label({
+        label = new Gtk.Label({
             label: _("Beep signal when timeout")
         });
 
