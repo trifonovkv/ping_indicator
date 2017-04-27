@@ -53,6 +53,7 @@ const PingMenuButton = new Lang.Class({
     },
 
     _loadData: function() {
+        let success;
         this.command = ["ping", "-c 1", this._pingDestination];
         [success, this.child_pid, this.std_in, this.std_out, this.std_err] =
         GLib.spawn_async_with_pipes(
