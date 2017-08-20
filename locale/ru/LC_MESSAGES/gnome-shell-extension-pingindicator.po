@@ -31,3 +31,6 @@ msgstr "Настройки"
 
 msgid "Waiting"
 msgstr "Ожидание"
+
+msgid "Submit"
+msgstr "Применить"

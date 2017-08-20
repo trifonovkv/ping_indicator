@@ -21,21 +21,16 @@ function init() {
 const PingPrefsWidget = new GObject.Class({
     Name: 'PingIndicatorExtension.Prefs.Widget',
     GTypeName: 'PingIndicatorExtensionPrefsWidget',
-    Extends: Gtk.Grid,
+    Extends: Gtk.VBox,
 
     _init: function(params) {
         this._loadConfig();
         this.parent(params);
         this.margin = 20;
         this.row_spacing = this.column_spacing = 10;
-        this.set_orientation(Gtk.Orientation.VERTICAL);
-
-        let hbox = new Gtk.HBox({
-            homogeneous: true
-        });
+        let row = new Gtk.HBox();
         let label = new Gtk.Label({
             label: _("Interval, sec."),
-            halign: Gtk.Align.CENTER
         });
         let ad = new Gtk.Adjustment({
             lower: 1.0,
@@ -43,55 +38,48 @@ const PingPrefsWidget = new GObject.Class({
             upper: 86400.0,
             value: 1.0
         });
-        let spinButton = new Gtk.SpinButton({
+        let timeoutSpinButton = new Gtk.SpinButton({
             adjustment: ad,
             digits: 0
         });
-        spinButton.set_value(this._refreshInterval);
-        spinButton.connect("value_changed", Lang.bind(this, function() {
-            this._refreshInterval = spinButton.value;
-        }));
-        hbox.pack_start(label, false, false, 50);
-        hbox.pack_end(spinButton, false, false, 50);
-        this.add(hbox);
+        timeoutSpinButton.set_value(this._refreshInterval);
+        row.pack_start(label, false, false, 8);
+        row.pack_end(timeoutSpinButton, false, false, 8);
+        this.pack_start(row, false, false, 8);
 
-        hbox = new Gtk.HBox({
-            homogeneous: true
-        });
+        row = new Gtk.HBox();
         label = new Gtk.Label({
             label: _("Destination, IP or URL")
         });
-
-        this._entry = new Gtk.Entry({
+        destinationEntry = new Gtk.Entry({
             text: this._pingDestination,
-            halign: Gtk.Align.CENTER
         });
-        this._entry.connect("activate", Lang.bind(this, function() {
-            this._pingDestination = this._entry.text;
-        }));
+        row.pack_start(label, false, false, 8);
+        row.pack_end(destinationEntry, false, false, 8);
+        this.pack_start(row, false, false, 8);
 
-        hbox.pack_start(label, false, false, 50);
-        hbox.pack_end(this._entry, false, false, 50);
-        this.add(hbox);
-
-        hbox = new Gtk.HBox({
-            homogeneous: true
-        });
+        row= new Gtk.HBox();
         label = new Gtk.Label({
             label: _("Beep signal when timeout")
         });
-
-        this._switch = new Gtk.Switch({
-            active: this._playBeep,
-            halign: Gtk.Align.CENTER
+        beepSwitch = new Gtk.Switch({
+            active: this._playBeep
         });
-        this._switch.connect("state_changed", Lang.bind(this, function() {
-            this._playBeep = this._switch.active;
-        }));
+        row.pack_start(label, false, false, 8);
+        row.pack_end(beepSwitch, false, false, 8);
+        this.pack_start(row, false, false, 8);
 
-        hbox.pack_start(label, false, false, 50);
-        hbox.pack_end(this._switch, false, false, 50);
-        this.add(hbox);
+        row = new Gtk.HBox();
+        submitButton = new Gtk.Button({
+            label: _("Submit")
+        });
+        submitButton.connect("clicked", Lang.bind(this, function() {
+            this._refreshInterval = timeoutSpinButton.value;
+            this._pingDestination = destinationEntry.text;
+            this._playBeep = beepSwitch.active;
+        }));
+        row.add(submitButton);
+        this.pack_start(row, false, false, 8);
     },
 
     _loadConfig: function() {
