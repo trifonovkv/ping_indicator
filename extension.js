@@ -82,19 +82,17 @@ const PingMenuButton = new Lang.Class({
         );
         this.tagWatchOUT = GLib.io_add_watch(this.IOchannelOUT, GLib.PRIORITY_DEFAULT,
             GLib.IOCondition.IN | GLib.IOCondition.HUP,
-            Lang.bind(this, this._loadPipeOUT),
-            null
+            Lang.bind(this, this._loadPipeOUT)
         );
         this.tagWatchERR = GLib.io_add_watch(this.IOchannelERR, GLib.PRIORITY_DEFAULT,
             GLib.IOCondition.IN | GLib.IOCondition.HUP,
-            Lang.bind(this, this._loadPipeERR),
-            null
+            Lang.bind(this, this._loadPipeERR)
         );
     },
 
     _loadPipeOUT: function(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
-            let [size, out] = channel.read_to_end(null);
+            let [size, out] = channel.read_to_end();
             let result = out.toString().match(/time=(\d*.*)/m);
             if(result != null)
                 this.buttonText.set_text(result[1]);
