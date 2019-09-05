@@ -51,7 +51,7 @@ const PingPrefsWidget = new GObject.Class({
         label = new Gtk.Label({
             label: _("Destination, IP or URL")
         });
-        destinationEntry = new Gtk.Entry({
+        let destinationEntry = new Gtk.Entry({
             text: this._pingDestination,
         });
         row.pack_start(label, false, false, 8);
@@ -62,7 +62,7 @@ const PingPrefsWidget = new GObject.Class({
         label = new Gtk.Label({
             label: _("Beep signal when timeout")
         });
-        beepSwitch = new Gtk.Switch({
+        let beepSwitch = new Gtk.Switch({
             active: this._playBeep
         });
         row.pack_start(label, false, false, 8);
@@ -70,7 +70,7 @@ const PingPrefsWidget = new GObject.Class({
         this.pack_start(row, false, false, 8);
 
         row = new Gtk.HBox();
-        submitButton = new Gtk.Button({
+        let submitButton = new Gtk.Button({
             label: _("Submit")
         });
         submitButton.connect("clicked", Lang.bind(this, function() {

@@ -93,9 +93,12 @@ const PingMenuButton = new Lang.Class({
     _loadPipeOUT: function(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
             let [size, out] = channel.read_to_end();
-            let result = out.toString().match(/time=(\d*.*)/m);
-            if(result != null)
-                this.buttonText.set_text(result[1]);
+            let result = out.toString().match(/time=(\d*)/m);
+            if(result != null) {
+                let str = result[1];
+                str = str.concat(_(" ms"));
+                this.buttonText.set_text(str);
+	    }
         }
         GLib.source_remove(this.tagWatchOUT);
         channel.shutdown(true);

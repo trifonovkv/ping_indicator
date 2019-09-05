@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 10:46+0500\n"
+"POT-Creation-Date: 2019-09-05 13:01+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,22 +25,30 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: extension.js:106
+#: extension.js:99
+msgid " ms"
+msgstr ""
+
+#: extension.js:109
 msgid "Error"
 msgstr ""
 
-#: extension.js:135
+#: extension.js:138
 msgid "Waiting"
 msgstr ""
 
-#: prefs.js:37
+#: prefs.js:33
 msgid "Interval, sec."
 msgstr ""
 
-#: prefs.js:62
+#: prefs.js:52
 msgid "Destination, IP or URL"
 msgstr ""
 
-#: prefs.js:81
+#: prefs.js:63
 msgid "Beep signal when timeout"
+msgstr ""
+
+#: prefs.js:74
+msgid "Submit"
 msgstr ""
