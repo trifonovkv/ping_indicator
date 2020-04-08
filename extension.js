@@ -6,6 +6,7 @@ const PopupMenu = imports.ui.popupMenu;
 const Lang = imports.lang;
 const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
+const ByteArray = imports.byteArray;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -31,7 +32,7 @@ const PingMenuButton = new Lang.Class({
             text: _("..."),
             y_align: Clutter.ActorAlign.CENTER
         });
-        this.actor.add_actor(this.buttonText);
+        this.add_actor(this.buttonText);
 
         let item = new PopupMenu.PopupMenuItem(_("Settings"));
         item.connect('activate', Lang.bind(this, this._onPreferencesActivate));
@@ -93,7 +94,7 @@ const PingMenuButton = new Lang.Class({
     _loadPipeOUT: function(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
             let [size, out] = channel.read_to_end();
-            let result = out.toString().match(/time=(\d*)/m);
+            let result = ByteArray.toString(out).match(/time=(\d*)/m);
             if(result != null) {
                 let str = result[1];
                 str = str.concat(_(" ms"));
