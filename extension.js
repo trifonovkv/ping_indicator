@@ -10,10 +10,12 @@ const ByteArray = imports.byteArray;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
+const Config = imports.misc.config;
 const Util = imports.misc.util;
 const Gettext = imports.gettext.domain('gnome-shell-extension-pingindicator');
 const _ = Gettext.gettext;
 
+const SHELL_MINOR = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 const PING_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.pingindicator';
 const PING_DESTINATION = 'ping-destination';
 const REFRESH_INTERVAL = 'refresh-interval';
@@ -32,7 +34,14 @@ const PingMenuButton = new Lang.Class({
             text: _("..."),
             y_align: Clutter.ActorAlign.CENTER
         });
-        this.add_actor(this.buttonText);
+
+        // Compatibility with gnome-shell >= 3.32
+        if (SHELL_MINOR > 30) {
+            this.add_actor(this.buttonText);
+        }
+        else {
+            this.actor.add_actor(this.buttonText);
+        }
 
         let item = new PopupMenu.PopupMenuItem(_("Settings"));
         item.connect('activate', Lang.bind(this, this._onPreferencesActivate));
