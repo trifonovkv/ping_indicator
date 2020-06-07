@@ -1,0 +1,7 @@
+po/*
+exclude.lst
+.exclude.lst.swp
+screenshot.png
+README.md
+.git/*
+
