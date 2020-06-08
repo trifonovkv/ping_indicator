@@ -178,11 +178,13 @@ function init() {
 }
 
 function enable() {
+    log(`enabling ${Me.metadata.name} version ${Me.metadata.version}`);
     pingMenu = new PingMenuButton;
     Main.panel.addToStatusArea('ping-indicator', pingMenu);
 }
 
 function disable() {
+    log(`disabling ${Me.metadata.name} version ${Me.metadata.version}`);
     pingMenu.stop();
     pingMenu.destroy();
 }
