@@ -11,8 +11,7 @@ Try the following:
 cd ~/.local/share/gnome-shell/extensions/
 rm -rf ping_indicator@trifonovkv.gmail.com/
 wget https://github.com/trifonovkv/ping_indicator/releases/download/v20/ping_indicator@trifonovkv.gmail.com.zip
-unzip ping_indicator@trifonovkv.gmail.com.zip -d
-ping_indicator@trifonovkv.gmail.com
+unzip ping_indicator@trifonovkv.gmail.com.zip -d ping_indicator@trifonovkv.gmail.com
 rm ping_indicator@trifonovkv.gmail.com.zip
 ```
 
