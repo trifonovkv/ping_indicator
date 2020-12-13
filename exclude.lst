@@ -1,6 +1,7 @@
 po/*
 exclude.lst
-.exclude.lst.swp
+*.swp
+Makefile
 screenshot.png
 README.md
 .git/*
