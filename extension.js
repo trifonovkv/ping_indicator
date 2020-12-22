@@ -102,7 +102,8 @@ const PingMenuButton = new Lang.Class({
     _loadPipeOUT: function(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
             let [size, out] = channel.read_to_end();
-            let result = String.fromCharCode.apply(null, out).match(/\d+(?=(\.\d)?\s\w+$)/m);
+            let result = String.fromCharCode.apply(null, out).match(/(?<=\w=)\d+(?=(.\d+)?\s\w+$)/m);
+
             if(result != null) {
                 let str = result[0];
                 str = str.concat(_(" ms"));
