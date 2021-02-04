@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ping Indicator GNOME Shell Extension\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-25 18:56-0300\n"
+"PO-Revision-Date: 2021-01-25 14:38+0200\n"
+"Last-Translator: Elias Arno Eskelinen <elias.eskelinen@protonmail.com>\n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: prefs.js:33
+msgid "Interval, sec."
+msgstr "Aikaväli (s)"
+
+#: prefs.js:52
+msgid "Destination, IP or URL"
+msgstr "Kohde IP-osoite tai URL"
+
+#: prefs.js:63
+msgid "Beep signal when timeout"
+msgstr "Piippaa kun paketti ei pääse perille"
+
+#: extension.js:33
+msgid "..."
+msgstr "…"
+
+#: extension.js:45
+msgid "Settings"
+msgstr "Asetukset"
+
+#: extension.js:119
+msgid "Error"
+msgstr "Virhe"
+
+#: extension.js:148
+msgid "Waiting"
+msgstr "Odotetaan"
