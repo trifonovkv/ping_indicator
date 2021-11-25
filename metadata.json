@@ -2,7 +2,8 @@
   "description": "Display ping time",
   "name": "Ping Indicator",
   "shell-version": [
-    "3.38.1"
+    "40",
+    "41",
   ],
   "url": "https://github.com/trifonovkv/ping_indicator",
   "uuid": "ping_indicator@trifonovkv.gmail.com",

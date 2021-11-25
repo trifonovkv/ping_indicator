@@ -14,21 +14,23 @@ const PING_DESTINATION = 'ping-destination';
 const REFRESH_INTERVAL = 'refresh-interval';
 const BEEP_WHEN_TIMEOUT = 'beep-when-timeout';
 
-function init() {
-    Convenience.initTranslations('gnome-shell-extension-pingindicator');
-}
-
-const PingPrefsWidget = new GObject.Class({
-    Name: 'PingIndicatorExtension.Prefs.Widget',
-    GTypeName: 'PingIndicatorExtensionPrefsWidget',
-    Extends: Gtk.VBox,
-
-    _init: function(params) {
+const PingPrefsWidget = GObject.registerClass(
+class PingPrefsWidget extends Gtk.Box {
+    _init() {
         this._loadConfig();
-        this.parent(params);
-        this.margin = 20;
-        this.row_spacing = this.column_spacing = 10;
-        let row = new Gtk.HBox();
+
+        super._init({
+            orientation: Gtk.Orientation.VERTICAL,
+            margin_top: 20,
+            margin_bottom: 20,
+            margin_start: 20,
+            margin_end: 20,
+            spacing: 10,
+        });
+
+        let row = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+        });
         let label = new Gtk.Label({
             label: _("Interval, sec."),
         });
@@ -43,33 +45,39 @@ const PingPrefsWidget = new GObject.Class({
             digits: 0
         });
         timeoutSpinButton.set_value(this._refreshInterval);
-        row.pack_start(label, false, false, 8);
-        row.pack_end(timeoutSpinButton, false, false, 8);
-        this.pack_start(row, false, false, 8);
+        row.append(label);
+        row.append(timeoutSpinButton);
+        this.append(row);
 
-        row = new Gtk.HBox();
+        row = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+        });
         label = new Gtk.Label({
             label: _("Destination, IP or URL")
         });
         let destinationEntry = new Gtk.Entry({
             text: this._pingDestination,
         });
-        row.pack_start(label, false, false, 8);
-        row.pack_end(destinationEntry, false, false, 8);
-        this.pack_start(row, false, false, 8);
+        row.append(label);
+        row.append(destinationEntry);
+        this.append(row);
 
-        row= new Gtk.HBox();
+        row = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+        });
         label = new Gtk.Label({
             label: _("Beep signal when timeout")
         });
         let beepSwitch = new Gtk.Switch({
             active: this._playBeep
         });
-        row.pack_start(label, false, false, 8);
-        row.pack_end(beepSwitch, false, false, 8);
-        this.pack_start(row, false, false, 8);
+        row.append(label);
+        row.append(beepSwitch);
+        this.append(row);
 
-        row = new Gtk.HBox();
+        row = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+        });
         let submitButton = new Gtk.Button({
             label: _("Submit")
         });
@@ -78,54 +86,55 @@ const PingPrefsWidget = new GObject.Class({
             this._pingDestination = destinationEntry.text;
             this._playBeep = beepSwitch.active;
         }));
-        row.add(submitButton);
-        this.pack_start(row, false, false, 8);
-    },
+        row.append(submitButton);
+        this.append(row);
+    };
 
-    _loadConfig: function() {
+    _loadConfig() {
         this._settings = Convenience.getSettings(PING_SETTINGS_SCHEMA);
-    },
+    };
 
     get _pingDestination() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_string(PING_DESTINATION);
-    },
+    };
 
     set _pingDestination(v) {
         if (!this._settings)
             this._loadConfig();
         this._settings.set_string(PING_DESTINATION, v);
-    },
+    };
 
     get _refreshInterval() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_int(REFRESH_INTERVAL);
-    },
+    };
 
     set _refreshInterval(v) {
         if (!this._settings)
             this._loadConfig();
         this._settings.set_int(REFRESH_INTERVAL, v);
-    },
+    };
 
     get _playBeep() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_boolean(BEEP_WHEN_TIMEOUT);
-    },
+    };
 
     set _playBeep(v) {
         if (!this._settings)
             this._loadConfig();
         this._settings.set_boolean(BEEP_WHEN_TIMEOUT, v);
-    },
-
+    };
 });
 
+function init() {
+    Convenience.initTranslations('gnome-shell-extension-pingindicator');
+}
+
 function buildPrefsWidget() {
-    let widget = new PingPrefsWidget();
-    widget.show_all();
-    return widget;
+    return new PingPrefsWidget();
 }
