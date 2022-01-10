@@ -3,9 +3,9 @@
   "name": "Ping Indicator",
   "shell-version": [
     "40",
-    "41",
+    "41"
   ],
   "url": "https://github.com/trifonovkv/ping_indicator",
   "uuid": "ping_indicator@trifonovkv.gmail.com",
-  "version": 23
+  "version": 25
 }
