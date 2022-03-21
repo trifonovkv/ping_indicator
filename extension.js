@@ -57,8 +57,7 @@ class PingMenuButton extends PanelMenu.Button {
     };
 
     _onPreferencesActivate() {
-        Util.spawn(["gnome-shell-extension-prefs", "ping_indicator@trifonovkv.gmail.com"]);
-        return 0;
+        ExtensionUtils.openPrefs();
     };
 
     _loadData() {
