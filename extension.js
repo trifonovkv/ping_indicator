@@ -1,6 +1,7 @@
 const St = imports.gi.St;
 const Main = imports.ui.main;
 const Clutter = imports.gi.Clutter;
+const GObject = imports.gi.GObject;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Lang = imports.lang;
@@ -22,13 +23,12 @@ const BEEP_WHEN_TIMEOUT = 'beep-when-timeout';
 
 const SOUND_FILE_PATH = '/usr/share/sounds/freedesktop/stereo/bell.oga';
 
-const PingMenuButton = new Lang.Class({
-    Name: 'PingMenuButton',
-    Extends: PanelMenu.Button,
-
-    _init: function() {
-        this.parent(0.0, 'Ping Indicator', false);
+const PingMenuButton = GObject.registerClass(
+class PingMenuButton extends PanelMenu.Button {
+    _init() {
+        super._init(St.Align.START);
         this._loadConfig();
+
         this.buttonText = new St.Label({
             text: _("..."),
             y_align: Clutter.ActorAlign.CENTER
@@ -47,21 +47,21 @@ const PingMenuButton = new Lang.Class({
         this.menu.addMenuItem(item);
 
         this._refresh();
-    },
+    };
 
-    _loadConfig: function() {
+    _loadConfig() {
         this._settings = Convenience.getSettings(PING_SETTINGS_SCHEMA);
         this._settingsC = this._settings.connect("changed", Lang.bind(this, function() {
             this._refresh();
         }));
-    },
+    };
 
-    _onPreferencesActivate: function() {
+    _onPreferencesActivate() {
         Util.spawn(["gnome-shell-extension-prefs", "ping_indicator@trifonovkv.gmail.com"]);
         return 0;
-    },
+    };
 
-    _loadData: function() {
+    _loadData() {
         let success;
         this.command = ["ping", "-c 1", this._pingDestination];
         [success, this.child_pid, this.std_in, this.std_out, this.std_err] =
@@ -97,9 +97,9 @@ const PingMenuButton = new Lang.Class({
             GLib.IOCondition.IN | GLib.IOCondition.HUP,
             Lang.bind(this, this._loadPipeERR)
         );
-    },
+    };
 
-    _loadPipeOUT: function(channel, condition, data) {
+    _loadPipeOUT(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
             let [size, out] = channel.read_to_end();
             let result = String.fromCharCode.apply(null, out).match(/(?<=\w=)\d+(?=(.\d+)?\s\w+$)/m);
@@ -112,35 +112,35 @@ const PingMenuButton = new Lang.Class({
         }
         GLib.source_remove(this.tagWatchOUT);
         channel.shutdown(true);
-    },
+    };
 
-    _loadPipeERR: function(channel, condition, data) {
+    _loadPipeERR(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
             this.buttonText.set_text(_("Error"));
         }
         GLib.source_remove(this.tagWatchERR);
         channel.shutdown(false);
-    },
+    };
 
     get _pingDestination() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_string(PING_DESTINATION);
-    },
+    };
 
     get _refreshInterval() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_int(REFRESH_INTERVAL);
-    },
+    };
 
     get _playBeep() {
         if (!this._settings)
             this._loadConfig();
         return this._settings.get_boolean(BEEP_WHEN_TIMEOUT);
-    },
+    };
 
-    _refresh: function() {
+    _refresh() {
         this._removeTimeout();
         if (this.child_pid === undefined) {
             this._loadData();
@@ -153,24 +153,24 @@ const PingMenuButton = new Lang.Class({
         this._timeout = Mainloop.timeout_add_seconds(this._refreshInterval,
             Lang.bind(this, this._refresh));
         return true;
-    },
+    };
 
-    _removeTimeout: function() {
+    _removeTimeout() {
         if (this._timeout !== undefined) {
             Mainloop.source_remove(this._timeout);
             this._timeout = undefined;
         }
-    },
+    };
 
-    stop: function() {
+    stop() {
         this._removeTimeout();
         if (this._settingsC) {
             this._settings.disconnect(this._settingsC);
             this._settingsC = undefined;
         }
         this.menu.removeAll();
-    }
-})
+    };
+});
 
 let pingMenu;
 
