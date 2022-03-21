@@ -15,6 +15,7 @@ const Util = imports.misc.util;
 const Gettext = imports.gettext.domain('gnome-shell-extension-pingindicator');
 const _ = Gettext.gettext;
 
+const SHELL_MAJOR = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 const SHELL_MINOR = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 const PING_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.pingindicator';
 const PING_DESTINATION = 'ping-destination';
@@ -34,8 +35,8 @@ class PingMenuButton extends PanelMenu.Button {
             y_align: Clutter.ActorAlign.CENTER
         });
 
-        // Compatibility with gnome-shell >= 3.32
-        if (SHELL_MINOR > 30) {
+        // Compatibility with gnome-shell >= 3.32 and gnome-shell >= 40
+        if (SHELL_MAJOR >= 40 || SHELL_MINOR > 30) {
             this.add_actor(this.buttonText);
         }
         else {
