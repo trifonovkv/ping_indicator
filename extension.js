@@ -174,6 +174,7 @@ class PingMenuButton extends PanelMenu.Button {
 let pingMenu;
 
 function init() {
+    log(`initializing ${Me.metadata.name} version ${Me.metadata.version}`);
     Convenience.initTranslations('gnome-shell-extension-pingindicator');
 }
 
