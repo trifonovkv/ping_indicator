@@ -19,3 +19,14 @@ rm ping_indicator@trifonovkv.gmail.com.zip
 3. Check for errors using Gnome Looking Glass: Alt+F2 > Type `lg` > Extensions.
 4. Check if the extension is listed as installed: `gnome-extensions list`.
 5. Run `gnome-tweaks` (install using `sudo apt-get install gnome-tweaks`), go to Extensions and make sure they are enabled.
+
+## Development
+
+```
+cd ~/.local/share/gnome-shell/extensions
+git clone git@github.com:trifonovkv/ping_indicator.git ping_indicator@trifonovkv.gmail.com
+cd ping_indicator@trifonovkv.gmail.com/
+
+# Hack-hack-hack, then:
+dbus-run-session -- gnome-shell --nested --wayland
+```
